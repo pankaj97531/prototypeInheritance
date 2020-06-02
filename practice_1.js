@@ -1,36 +1,44 @@
-var Mobile = function(){
-	
+var Person = function(name){
+    this.name = name;
+    this.canTalk =true;
 }
-Mobile.prototype.getModel = function(){
-	return this.model;
-}
-
-var Samsung = function(model,price){
-	this.model = model;
-	this.price = price;
+Person.prototype.greet = function(){
+    if(this.canTalk){
+        console.log('Hi, I am ' + this.name);
+    }
 }
 
-var Lenovo = function(model,price){
-	Samsung.call(this,model,price);
-	
+var Employee = function(name,title){
+    Person.call(this,name);
+    this.title = title;
 }
 
-Samsung.prototype = Object.create(Mobile.prototype);
-Samsung.prototype.constructor = Samsung;
-Samsung.prototype.getPrice = function(){
-	return this.price;
+Employee.prototype = Object.create(Person.prototype);
+Employee.prototype.constructor = Employee;
+Employee.prototype.greet=function(){
+    if(this.canTalk){
+        console.log('Hi, I am ' + this.name + ', the ' + this.title);
+    }
+}
+var e1 = new Employee("Pankaj","Developer");
+e1.greet();
+
+var Customer = function(name){
+    Person.call(this,name);
 }
 
-Lenovo.prototype = Object.create(Samsung.prototype);
-Lenovo.prototype.constructor = Lenovo;
-Lenovo.prototype.getDetls = function(){
-	return "Model : "+this.model + " Price : "+this.price;
-}
+Customer.prototype = Object.create(Person.prototype);
+Customer.prototype.constructor = Customer;
 
-var s1 = new Samsung('s30',35000);
-var l1 = new Lenovo('K8',15000);
-console.log(s1.getModel());
-console.log(s1.getPrice());
-console.log(l1.getModel());
-console.log(l1.getPrice());
-console.log(l1.getDetls());
+var c1 = new Customer("Rahul");
+c1.greet();
+
+var Mine = function(name){
+    Person.call(this,name);
+    this.canTalk = false;
+}
+Mine.prototype = Object.create(Person.prototype);
+Mine.prototype.constructor = Mine;
+
+var m1 = new Mine("XXXXXXXXXX")
+m1.greet();
